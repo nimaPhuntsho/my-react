@@ -14,4 +14,8 @@
 
 .quiz {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  border: 5px solid rgb(246, 148, 148);
 }
