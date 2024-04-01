@@ -1,0 +1,28 @@
+.head-wrapper {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  width: 100%;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+h1 {
+  font-size: 1rem;
+}
+
+a {
+  color: antiquewhite;
+  text-decoration: none;
+}

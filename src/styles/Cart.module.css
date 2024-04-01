@@ -1,0 +1,89 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card-wrapper {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 2rem;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 10px;
+}
+
+.card-body {
+  display: flex;
+  gap: 1rem;
+}
+
+.card-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cart-list {
+  /* display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: 5% 30% repeat(3, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.cart-list > * {
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  border: 0.1px solid;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  border-radius: 10px;
+  color: rgb(92, 142, 193);
+}
+
+li {
+  list-style-type: none;
+}
+
+p,
+h1 {
+  margin: 0;
+  padding: 0;
+}
+.card-body h1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.total-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  justify-content: space-between;
+}
+
+.total-wrapper h1 {
+  font-size: 1.3rem;
+}
+.price {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+
+.hover-effect:hover {
+  cursor: pointer;
+}

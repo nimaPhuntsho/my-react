@@ -1,0 +1,17 @@
+.card {
+  width: 18rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.answer {
+  background-color: rgb(247, 121, 121);
+}
+
+.quiz {
+  display: flex;
+}
