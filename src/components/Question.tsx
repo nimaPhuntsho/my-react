@@ -36,18 +36,25 @@ const Question = () => {
   //global state
   const quizStore = useQuiz().items;
   const addQuizAnswer = useQuiz().add;
+  const resetQuizStore = useQuiz().reset;
 
   useEffect(() => {
     const q = newQuestions();
-    setQuizQuestions(q);
+    const reshuffledOptions: QuizAnswer[] = q.map((element) => ({
+      ...element,
+      options: reshuffleOptions(element.options),
+    }));
+    setQuizQuestions(reshuffledOptions);
   }, []);
 
   const newQuestions = (): QuizAnswer[] => {
     return questions.map((element) => {
       const temp: QuizAnswer = {
         ...element,
-        hasAnswered: false,
+        answerSelected: false,
         userAnswer: "",
+        hasSubmitted: false,
+        point: 0,
       };
       return temp;
     });
@@ -57,36 +64,76 @@ const Question = () => {
     setSelectedAnswer(answer);
     const current = quizQuestions.map((element) => {
       if (element.id === question.id) {
-        return { ...element, hasAnswered: true, userAnswer: answer };
+        return {
+          ...element,
+          answerSelected: true,
+          userAnswer: answer,
+        };
       }
       return element;
     });
     setQuizQuestions(current);
   };
 
-  const checkAnswer = (userAnswer: string, correctAnswer: string): number => {
-    let result = 0;
+  const reshuffleOptions = (options: string[]): string[] => {
+    const temp: string[] = [];
+    const indexes: number[] = generateRandomIndexs(options.length);
+    indexes.forEach((randomIndex) => {
+      temp.push(options[randomIndex]);
+    });
+    return temp;
+  };
+
+  const generateRandomIndexs = (size: number): number[] => {
+    let temp: number[] = [];
+    while (temp.length < size) {
+      let randomIndex = Math.floor(Math.random() * size);
+      if (!temp.includes(randomIndex)) {
+        temp.push(randomIndex);
+      }
+    }
+
+    return temp;
+  };
+
+  const checkAnswer = (userAnswer: string, correctAnswer: string): boolean => {
+    let result = false;
     if (
       userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()
     ) {
-      result = 1;
-    } else result = 0;
+      result = true;
+    } else result = false;
     return result;
+  };
+
+  const resetQuiz = () => {
+    const q = newQuestions();
+    setQuizQuestions(q);
   };
 
   const submit = (question: QuizAnswer) => {
     addQuizAnswer(question);
     const current = quizQuestions.map((element) => {
       if (element.id === question.id) {
-        return { ...element, hasAnswered: false };
+        return { ...element, hasSubmitted: true };
       }
       return element;
     });
     setQuizQuestions(current);
   };
 
-  const renderQuestions = quizQuestions.map((element, index) => (
-    <Card key={element.id} width={"500px"}>
+  const calculateScore = (): number => {
+    let score: number = 0;
+    quizStore.forEach((element) => {
+      if (element.correctAnswer === element.userAnswer) {
+        score++;
+      }
+    });
+    return score;
+  };
+
+  const renderQuestions = quizQuestions.map((element) => (
+    <Card w={"600px"} padding={"1rem"} key={element.id}>
       <CardBody>
         <HStack alignItems={"start"}>
           <Heading padding={0} margin={0} size={"md"}>
@@ -96,59 +143,115 @@ const Question = () => {
             {element.question}
           </Text>
         </HStack>
-        <Box display={element.hasAnswered}>
+        <Box>
           {element.options.map((answer, index) => (
             <Text
               border={".1px solid"}
               padding="1rem"
               borderRadius={"4px"}
               key={index}
-              _hover={{ border: "1px solid red", cursor: "pointer" }}
+              _hover={{ bg: "lightBlue", cursor: "pointer" }}
               onClick={() => getUserAnswer(answer, element)}
               backgroundColor={
                 selectedAnswer === answer.trim() &&
                 element.userAnswer === answer.trim()
-                  ? "rgb(246, 148, 148)"
+                  ? "lightBlue"
                   : "transparent"
               }
+              pointerEvents={element.hasSubmitted ? "none" : "auto"}
             >
               {answer}
             </Text>
           ))}
         </Box>
-        <HStack>
-          <Button
-            isDisabled={!element.hasAnswered}
-            onClick={() => submit(element)}
-            colorScheme={"twitter"}
-          >
-            Submit
-          </Button>
+        <HStack alignItems={"center"}>
+          {element.hasSubmitted ? (
+            <Button
+              isDisabled={element.answerSelected}
+              onClick={() => submit(element)}
+              colorScheme={"twitter"}
+            >
+              Done
+            </Button>
+          ) : (
+            <Button
+              isDisabled={!element.answerSelected}
+              onClick={() => submit(element)}
+              colorScheme={"twitter"}
+            >
+              Submit
+            </Button>
+          )}
+          {element.hasSubmitted ? (
+            <div>
+              {checkAnswer(selectedAnswer, element.correctAnswer) ? (
+                <Text fontWeight={600} padding={"0"} margin={0}>
+                  Correct
+                </Text>
+              ) : (
+                <Text color={"red"} fontWeight={600} padding={"0"} margin={0}>
+                  Incorrect
+                </Text>
+              )}
+            </div>
+          ) : (
+            ""
+          )}
         </HStack>
       </CardBody>
     </Card>
   ));
   return (
     <>
-      <Flex direction={"column"}>
+      <Flex justifyContent={"center"}>
         <Box className={styles["question-wrapper"]}>
-          <Heading size={"lg"}>Quiz</Heading>
+          <Flex
+            padding={"1rem"}
+            border={".4px solid"}
+            borderRadius="4px"
+            gap={"1.5rem"}
+            alignItems={"center"}
+            bg="rgb(182, 175, 167)"
+            className={styles["score-board"]}
+          >
+            <Flex
+              flex={1}
+              alignItems="center"
+              justifyContent={"flex-start"}
+              gap={"1rem"}
+            >
+              <Text flex={1} margin={0}>
+                Questions answered
+              </Text>
+              <Text fontWeight={600} margin={0} flex={1}>
+                {quizStore.length}
+              </Text>
+            </Flex>
+            <Flex alignItems="center" flex={1} gap={"1rem"}>
+              <Text flex={1} margin={0}>
+                Remaining questions
+              </Text>
+              <Text fontWeight={600} margin={0} flex={1}>
+                {quizQuestions.length - quizStore.length}
+              </Text>
+            </Flex>
+            <Text flex={1} margin={0}>
+              {calculateScore()} out of {quizStore.length}
+            </Text>
+            <Button
+              flex={1}
+              onClick={() => {
+                resetQuizStore();
+                resetQuiz();
+              }}
+            >
+              Reset
+            </Button>
+          </Flex>
           {renderQuestions}
+          <Button>Finish</Button>
         </Box>
       </Flex>
-
-      {/* <div className="quiz">
-      </div> */}
-
-      <div>
-        {quizStore.map((element) => (
-          <Box border={"1px solid"} key={element.id}>
-            <li> U- {element.userAnswer} </li>
-            <li> Correct - {element.correctAnswer} </li>
-            <li> {element.question} </li>
-          </Box>
-        ))}
-      </div>
     </>
   );
 };

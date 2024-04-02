@@ -37,7 +37,7 @@ const Landing = () => {
             <VStack>
               <Heading>React project</Heading>
               <Text>
-                In my React project, I explored fundamentals like JSX,
+                In this React project, I explored fundamentals like JSX,
                 functional components, and state management with Zustand,
                 enhancing UI development and state sharing. This hands-on
                 experience deepened my React skills, demonstrating the
@@ -45,7 +45,7 @@ const Landing = () => {
                 for React drives my commitment to continually learn and apply
                 its concepts efficiently.
               </Text>
-              <Text>I have learnt the following concepts below so far:</Text>
+              <Text>I have learnt the following concepts so far:</Text>
               <Box w={"100%"} className={styles.lists}>
                 {renderComponents()}
               </Box>

@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartItem, useCartStore, useCountStore } from "../stores/store";
@@ -107,8 +107,20 @@ const Products = () => {
   ));
 
   return (
-    <div>
-      <div className={styles["product-wrapper"]}>{listProducts}</div>
+    <div className={styles.main}>
+      <div className={styles.wrapper}>
+        <Flex direction={"column"}>
+          <Heading size={"md"}>Our products</Heading>
+          <Text>
+            This React app is a streamlined cart management system. It fetches a
+            variety of products from an external API, allowing users to easily
+            add, remove, or adjust items in their cart. With its responsive
+            design and real-time updates, the app offers a smooth and
+            user-friendly shopping experience.
+          </Text>
+        </Flex>
+        <div className={styles["product-wrapper"]}>{listProducts}</div>
+      </div>
     </div>
   );
 };
