@@ -75,13 +75,6 @@ const Question = () => {
   };
 
   const submit = (question: QuizAnswer) => {
-    // const { correctAnswer } = question;
-    // const current: QuizAnswer = {
-    //   ...question,
-    //   userAnswer: selectedAnswer,
-    //   //   point: checkAnswer(selectedAnswer, correctAnswer),
-    //   hasAnswered: true,
-    // };
     addQuizAnswer(question);
     const current = quizQuestions.map((element) => {
       if (element.id === question.id) {
@@ -103,7 +96,7 @@ const Question = () => {
             {element.question}
           </Text>
         </HStack>
-        <Box>
+        <Box display={element.hasAnswered}>
           {element.options.map((answer, index) => (
             <Text
               border={".1px solid"}
