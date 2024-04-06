@@ -1,6 +1,16 @@
-import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Flex,
+  Heading,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import supabase from "../config/supabaseClient";
 import { CartItem, useCartStore, useCountStore } from "../stores/store";
 import styles from "../styles/Products.module.css";
 
@@ -50,15 +60,25 @@ const Products = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const jsonResponse = await response.json();
-        // Set products to the correct property from the response
-        // Assuming the API response structure is like { products: [...] }
         setProducts(jsonResponse.products);
       } catch (error) {
         console.error("Fetching data error:", error);
       }
     };
 
+    // const fetchProducts = async () => {
+    //   const response = await fetch(URL);
+    //   const jsonData = await response.json();
+    //   const product: Product[] = jsonData.products;
+    //   console.log(product);
+
+    //   const { data, error } = await supabase.from("Products").insert(product);
+
+    //   console.log(data);
+    // };
+
     fetchData();
+    // fetchProducts();
   }, []);
 
   const isAdded = (product: CartItem) => {
@@ -74,36 +94,48 @@ const Products = () => {
 
   // Now `products` is guaranteed to be an array, so .map() will be a function
   const listProducts = products.map((product) => (
-    <div className="card" key={product.id}>
-      <img className="card-img-top" src={product.thumbnail} alt="" />
-      <div className="card-body">
-        <div>
-          <li className="card-title">{product.title}</li>
-          <li> {product.description} </li>
-        </div>
-        <div className={styles["price-btn"]}>
-          <li className={styles.price}>${product.price}</li>
-          {!isAdded(product) ? (
-            <Button
-              colorScheme={"blue"}
-              onClick={() => addItems({ ...product, quantity: 1 })}
-            >
-              Add to cart
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                isAdded(product);
-                removeItem(product);
-              }}
-              colorScheme="green"
-            >
-              Remove
-            </Button>
-          )}
-        </div>
-      </div>
-    </div>
+    <Card key={product.id}>
+      <CardBody
+        display={"flex"}
+        flexDirection="column"
+        justifyContent={"space-between"}
+      >
+        <Image
+          width={"100%"}
+          className="card-img-top"
+          src={product.thumbnail}
+          alt=""
+          borderRadius={"4px"}
+        />
+        <Stack>
+          <div>
+            <li className="card-title">{product.title}</li>
+            <li> {product.description} </li>
+          </div>
+          <div className={styles["price-btn"]}>
+            <li className={styles.price}>${product.price}</li>
+            {!isAdded(product) ? (
+              <Button
+                colorScheme={"blue"}
+                onClick={() => addItems({ ...product, quantity: 1 })}
+              >
+                Add to cart
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  isAdded(product);
+                  removeItem(product);
+                }}
+                colorScheme="green"
+              >
+                Remove
+              </Button>
+            )}
+          </div>
+        </Stack>
+      </CardBody>
+    </Card>
   ));
 
   return (

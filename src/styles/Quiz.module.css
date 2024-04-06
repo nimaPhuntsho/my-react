@@ -1,11 +1,3 @@
-.question-wrapper {
-  display: flex;
-  gap: 2rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .wrapper {
   width: 600px;
 }
@@ -14,12 +6,14 @@
   display: flex;
   justify-content: center;
   padding: 2rem;
+  position: relative;
 }
 
-@media screen and (width < 600px) {
-  .score-board {
-    display: flex;
-    direction: column;
-    background-color: red;
-  }
+.score-board {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  position: relative;
 }

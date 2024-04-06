@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { questions } from "../data/questions";
 import { QuizAnswer, useQuiz } from "../stores/quiz";
-import styles from "../styles/Quiz.module.css";
+import styles from "../styles/Question.module.css";
 
 export interface UserAnswerStore {
   items: QuizAnswer[];
@@ -133,7 +133,7 @@ const Question = () => {
   };
 
   const renderQuestions = quizQuestions.map((element) => (
-    <Card w={"600px"} padding={"1rem"} key={element.id}>
+    <Card padding={"1rem"} key={element.id}>
       <CardBody>
         <HStack alignItems={"start"}>
           <Heading padding={0} margin={0} size={"md"}>
@@ -211,7 +211,7 @@ const Question = () => {
             borderRadius="4px"
             gap={"1.5rem"}
             alignItems={"center"}
-            bg="rgb(182, 175, 167)"
+            justifyContent="space-evenly"
             className={styles["score-board"]}
           >
             <Flex
@@ -219,6 +219,7 @@ const Question = () => {
               alignItems="center"
               justifyContent={"flex-start"}
               gap={"1rem"}
+              w={"100%"}
             >
               <Text flex={1} margin={0}>
                 Questions answered
@@ -227,7 +228,7 @@ const Question = () => {
                 {quizStore.length}
               </Text>
             </Flex>
-            <Flex alignItems="center" flex={1} gap={"1rem"}>
+            <Flex w={"100%"} alignItems="center" flex={1} gap={"1rem"}>
               <Text flex={1} margin={0}>
                 Remaining questions
               </Text>
@@ -235,11 +236,10 @@ const Question = () => {
                 {quizQuestions.length - quizStore.length}
               </Text>
             </Flex>
-            <Text flex={1} margin={0}>
-              {calculateScore()} out of {quizStore.length}
+            <Text w={"100%"} flex={1} margin={0}>
+              score : {calculateScore()} / {quizStore.length}
             </Text>
             <Button
-              flex={1}
               onClick={() => {
                 resetQuizStore();
                 resetQuiz();
@@ -248,8 +248,7 @@ const Question = () => {
               Reset
             </Button>
           </Flex>
-          {renderQuestions}
-          <Button>Finish</Button>
+          <Box>{renderQuestions}</Box>
         </Box>
       </Flex>
     </>

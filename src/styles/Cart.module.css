@@ -21,10 +21,10 @@
   gap: 1rem;
 }
 
-.card-list-wrapper {
+.cart-list-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .cart-list {
@@ -38,10 +38,6 @@
   align-items: center;
 }
 
-.cart-list > * {
-  width: 100%;
-}
-
 .button-group {
   display: flex;
   gap: 0.5rem;
@@ -51,7 +47,7 @@
   justify-content: center;
   height: 1.5rem;
   border-radius: 10px;
-  color: rgb(92, 142, 193);
+  color: rgb(165, 182, 200);
 }
 
 li {
@@ -86,4 +82,8 @@ h1 {
 
 .hover-effect:hover {
   cursor: pointer;
+}
+
+button {
+  padding: 1rem;
 }

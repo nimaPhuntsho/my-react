@@ -10,7 +10,7 @@
 
 .product-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   gap: 1rem;
 }
 
@@ -26,12 +26,17 @@ img {
   justify-content: space-between;
 }
 
+.price-btn li,
+button {
+  flex: 1;
+}
+
 .price {
   font-family: "Inter", sans-serif;
   font-weight: 800;
 }
 
-@media screen and (width < 1500px) {
+/* @media screen and (width < 1500px) {
   .product-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -41,4 +46,4 @@ img {
   .product-wrapper {
     grid-template-columns: repeat(1, 1fr);
   }
-}
+} */

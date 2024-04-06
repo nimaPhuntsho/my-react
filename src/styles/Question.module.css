@@ -1,0 +1,30 @@
+.question-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.score-board {
+  display: flex;
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  background-color: aquamarine;
+}
+
+@media screen and (width < 600px) {
+  .score-board {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid;
+  }
+
+  button {
+    width: 100%;
+  }
+}

@@ -16,6 +16,7 @@ interface CartStore {
   remove: (item: CartItem) => void;
   incrementQuantity: (product: Product) => void;
   decrementQuantity: (product: Product) => void;
+  reset: () => void;
 }
 
 export const useCartStore = create<CartStore>()((set) => ({
@@ -44,6 +45,9 @@ export const useCartStore = create<CartStore>()((set) => ({
           : element
       ),
     })),
+  reset: () => {
+    set(() => ({ items: [] }));
+  },
 }));
 
 export const useCountStore = create<Counter>()((set) => ({

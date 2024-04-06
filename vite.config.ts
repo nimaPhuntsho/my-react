@@ -7,4 +7,7 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000, // Increase the limit to 1000kB, for example
   },
+  define: {
+    "process.env.VITE": JSON.stringify(process.env.VITE),
+  },
 });

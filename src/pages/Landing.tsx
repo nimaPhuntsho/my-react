@@ -8,10 +8,12 @@ import {
   CardBody,
   Heading,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/Landing.module.css";
 
 const Landing = () => {
+  useEffect(() => {}, []);
   const components = [
     "functional components",
     "state and props",

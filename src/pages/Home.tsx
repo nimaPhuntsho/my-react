@@ -1,8 +1,9 @@
 import Header from "../components/Header";
 import Products from "../components/Products";
+import supabase from "../config/supabaseClient";
 
 const Home = () => {
-  return <>{/* <Products /> */}</>;
+  return <>{console.log("ll")}</>;
 };
 
 export default Home;

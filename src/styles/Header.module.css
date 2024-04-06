@@ -1,10 +1,7 @@
-.head-wrapper {
-  padding: 1rem;
+.header-wrapper {
+  background-color: rgb(37, 32, 32);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  width: 100%;
 }
 
 .nav-list {
@@ -25,4 +22,14 @@ h1 {
 a {
   color: antiquewhite;
   text-decoration: none;
+}
+
+.hide-brand {
+  display: block;
+}
+
+@media screen and (width < 600px) {
+  .hide-brand {
+    display: none;
+  }
 }

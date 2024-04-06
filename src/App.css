@@ -15,3 +15,10 @@
   width: 100%;
   border: 5px solid rgb(246, 148, 148);
 }
+
+.product-list {
+}
+
+.product-list li {
+  flex: 1;
+}

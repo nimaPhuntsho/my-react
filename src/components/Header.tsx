@@ -19,13 +19,19 @@ const Header = () => {
     } else result = false;
     return result;
   };
+
   return (
     <>
-      <HStack padding={"1rem"} justifyContent={"space-between"} bg={"black"}>
+      <HStack className={styles["header-wrapper"]} padding={"1rem"}>
         <Link to="">
           <HStack color={"white"}>
             <FontAwesomeIcon icon={faCube} />
-            <Heading padding={0} margin={0} size={"md"}>
+            <Heading
+              className={styles["hide-brand"]}
+              padding={0}
+              margin={0}
+              size={"md"}
+            >
               stopshop
             </Heading>
           </HStack>
@@ -37,13 +43,21 @@ const Header = () => {
               Products
             </Heading>
           </Link>
+          <Link to={"dashboard"}>
+            <Heading padding={0} margin={0} size={"md"}>
+              My orders
+            </Heading>
+          </Link>
           <Link to={"quiz"}>
             <Heading padding={0} margin={0} size={"md"}>
               Quiz
             </Heading>
           </Link>
           <Link to={"cart"}>
-            <Button isDisabled={cartSize.length === 0} colorScheme={"blue"}>
+            <Button
+              isDisabled={cartSize.length === 0}
+              colorScheme={"messenger"}
+            >
               <FontAwesomeIcon icon={faCartShopping} />
               <span className="badge badge-light"> {cartSize.length} </span>
             </Button>
