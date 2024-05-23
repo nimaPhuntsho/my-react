@@ -53,6 +53,11 @@ const Header = () => {
               Quiz
             </Heading>
           </Link>
+          <Link to={"query"}>
+            <Heading padding={0} margin={0} size={"md"}>
+              React query
+            </Heading>
+          </Link>
           <Link to={"cart"}>
             <Button
               isDisabled={cartSize.length === 0}

@@ -35,15 +35,3 @@ button {
   font-family: "Inter", sans-serif;
   font-weight: 800;
 }
-
-/* @media screen and (width < 1500px) {
-  .product-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (width < 600px) {
-  .product-wrapper {
-    grid-template-columns: repeat(1, 1fr);
-  }
-} */

@@ -6,7 +6,15 @@ import Landing from "./pages/Landing";
 import Quiz from "./pages/Quiz";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
-
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import ReactQuery from "./components/ReactQuery";
+const queryClient = new QueryClient();
 function App() {
   return (
     <div>
@@ -17,6 +25,7 @@ function App() {
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/quiz" element={<Quiz />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/query" element={<ReactQuery />}></Route>
       </Routes>
     </div>
   );
